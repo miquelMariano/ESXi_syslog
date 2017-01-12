@@ -42,6 +42,7 @@ Example Playbook
 ----------------
 
 This play is executed when update_mode var is "true" and ensure that role is up to date. By default update var is "false"
+
 miquelMariano.ESXi_{{ role }} folder must be exist. If not, the playbook not found role and fails. You shoud make dir manually "mkdir /etc/ansible/my_role"
 
 ```
