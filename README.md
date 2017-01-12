@@ -1,31 +1,73 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+ESXi_syslog configure the syslog and scratch dir to save logs of ESXi
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+No requirements
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Is necessary that variables scratch_dir & syslog_server are defined on inventory file
+
+Example:
+
+		[all]
+		servers_group1
+		servers_group2
+
+		[servers_group1]
+		server1
+		server2
+		server3
+
+		[servers_group2]
+		server11
+		server12
+		server13
+
+		[all:vars]
+		scratch_dir='datastore01-local'
+		syslog_server='vcenter.corp.ncora.com'
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+No dependencies
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+This play is executed when update_mode var is "true" and ensure that role is up to date. By default update var is "false"
+		- hosts: ansible
+ 		 user: root
+ 		 tasks:
+ 		   - name: Ensure that role are up to date
+ 		     command: ansible-galaxy install --force {{ item }}
+ 		     with_items:
+ 		       - miquelMariano.common
+ 		       - miquelMariano.ESXi_{{ role  }}
+ 		     when:
+ 		       - update_mode | default(False)
+ 		     tags: update
+ 		     ignore_errors: yes
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+miquelMariano.ESXi_{{ role }} folder must be exist. If not, the playbook not found role and fails. You shoud make dir manually "mkdir /etc/ansible/my_role"
+
+		- hosts: "{{ servers }}:!localhost"
+		  user: root
+ 		 serial: 15
+ 		 roles:
+ 		  - role: miquelMariano.ESXi_{{ role }}
+
+Usage
+-------
+
+`ansible-playbook playbooks/ESXi_config.yml -i inventory/ESXi --extra-vars "servers=servers_group1 role=syslog update_mode=true" --tags "update|set|get"`
+
 
 License
 -------
@@ -35,4 +77,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[@miquelMariano](https://twitter.com/miquelMariano)
