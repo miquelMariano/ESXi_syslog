@@ -52,7 +52,6 @@ miquelMariano.ESXi_{{ role }} folder must be exist. If not, the playbook not fou
  		   - name: Ensure that role are up to date
  		     command: ansible-galaxy install --force {{ item }}
  		     with_items:
- 		       - miquelMariano.common
  		       - miquelMariano.ESXi_{{ role  }}
  		     when:
  		       - update_mode | default(False)
