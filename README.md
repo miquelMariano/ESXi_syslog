@@ -42,6 +42,9 @@ Example Playbook
 ----------------
 
 This play is executed when update_mode var is "true" and ensure that role is up to date. By default update var is "false"
+miquelMariano.ESXi_{{ role }} folder must be exist. If not, the playbook not found role and fails. You shoud make dir manually "mkdir /etc/ansible/my_role"
+
+```
 		- hosts: ansible
  		 user: root
  		 tasks:
@@ -55,13 +58,12 @@ This play is executed when update_mode var is "true" and ensure that role is up 
  		     tags: update
  		     ignore_errors: yes
 
-miquelMariano.ESXi_{{ role }} folder must be exist. If not, the playbook not found role and fails. You shoud make dir manually "mkdir /etc/ansible/my_role"
-
 		- hosts: "{{ servers }}:!localhost"
 		  user: root
  		 serial: 15
  		 roles:
  		  - role: miquelMariano.ESXi_{{ role }}
+```
 
 Usage
 -------
