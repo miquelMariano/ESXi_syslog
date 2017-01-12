@@ -1,0 +1,10 @@
+---
+
+- name: Get scratch log configuration
+  command: esxcli system syslog config get
+  register: output
+
+- name: Print output
+  debug: var=output.stdout_lines
+
+

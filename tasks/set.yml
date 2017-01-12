@@ -1,0 +1,26 @@
+---
+
+#https://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2003322
+
+- name: Enable firewall rule
+  command: esxcli network firewall ruleset set --ruleset-id syslog --enabled true
+
+#- name: Ensure that directory logs exist
+#  file: path=/vmfs/volumes/{{ scratch_dir }}/ESXi-logs/{{ inventory_hostname }} state=directory mode=0755
+
+- name: Set config
+  command: esxcli system syslog config set --logdir=/vmfs/volumes/{{ scratch_dir }}/ESXi-logs/ --loghost=tcp://{{ syslog_server }}:514 --logdir-unique=true --default-rotate=8
+
+- name: Syslog reload
+  command: esxcli system syslog reload
+
+
+#- name: Configure ESXi logs scratch location
+#  command: "{{ item }}"
+#  with_items:
+#   - /bin/vim-cmd hostsvc/advopt/update ScratchConfig.ConfiguredScratchLocation string /vmfs/volumes/{{ scratch_dir }}/ESXi-logs/{{ inventory_hostname }}
+
+
+
+- include: get.yml
+

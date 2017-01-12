@@ -1,0 +1,11 @@
+---
+# tasks file for ESXi_syslog
+
+
+- include: set.yml
+  tags: set
+
+- include: get.yml
+  tags: get
+
+
