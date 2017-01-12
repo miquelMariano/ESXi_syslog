@@ -64,7 +64,7 @@ miquelMariano.ESXi_{{ role }} folder must be exist. If not, the playbook not fou
  		  serial: 15
  		  roles:
  		  - role: miquelMariano.ESXi_{{ role }}
-``
+```
 
 Usage
 -------
