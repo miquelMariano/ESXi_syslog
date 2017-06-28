@@ -2,7 +2,7 @@
 
 galaxy_info:
   author: '@miquelMariano'
-  description: Ansible role to configure syslog server and scratch log
+  description: Ansible role to configure syslog server and scratch log on ESXi
   company: 'Ncora Information Technology S.L.'
   license: license (GPLv2, CC-BY, etc)
   min_ansible_version: 2.2
